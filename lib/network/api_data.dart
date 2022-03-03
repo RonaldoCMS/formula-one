@@ -4,6 +4,7 @@ import 'package:formulaone/network/testing/test_drivers.dart';
 import 'package:formulaone/network/testing/test_teams.dart';
 
 class APIData {
+  
   static Future<List<ClassificationDriver>> getDrivers() async {
     List<ClassificationDriver> result = [];
 

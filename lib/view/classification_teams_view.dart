@@ -24,6 +24,7 @@ class ClassificationTeams_View extends StatelessWidget {
       decoration: BoxDecoration(color: Colors.red.shade700),
       padding: EdgeInsets.all(16),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Container(
             width: 150,
@@ -54,24 +55,19 @@ class ClassificationTeams_View extends StatelessWidget {
               },
             ),
           ),
-          Spacer(),
-          SizedBox(
-            height: 50,
-            width: double.infinity,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: Colors.white,
-                onPrimary: Colors.red,
-              ),
-              onPressed: () => Navigator.pop(context),
-              child: const Text(
-                "Back",
-                textScaleFactor: 1,
-              ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: Colors.white,
+              onPrimary: Colors.red,
+            ),
+            onPressed: () => Navigator.pop(context),
+            child: const Text(
+              "Back",
+              textScaleFactor: 1,
             ),
           ),
           const Divider(),
-          const Text("Season 2021"),
+          const Text("Season 2021", textAlign: TextAlign.center),
         ],
       ),
     ));
@@ -80,57 +76,17 @@ class ClassificationTeams_View extends StatelessWidget {
   Widget driver(List<ClassificationTeam> teams) {
     return ListView.separated(
       itemBuilder: (context, index) {
-        //List<String> splitName = drivers[index].driver.name.split(" ");
         return Container(
-          //height: 50,
           decoration: BoxDecoration(
-            borderRadius: const BorderRadius.only(
-              bottomRight: Radius.circular(10),
+            borderRadius: const BorderRadius.all(
+              Radius.circular(10),
             ),
-            image: DecorationImage(
-              fit: BoxFit.cover,
-              image: NetworkImage("${teams[index].team.logo}"),
-            ),
-            color: Colors.red,
+            color: Colors.black.withOpacity(0.4),
           ),
           child: ListTile(
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: const BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(100),
-                    ),
-                  ),
-                  child: Text(
-                    "${teams[index].points} PT",
-                    style: const TextStyle(
-                      fontSize: 10,
-                      color: Colors.white,
-                    ),
-                  ),
-                )
-              ],
-            ),
-            leading: Container(
-              padding: const EdgeInsets.all(8),
-              decoration: const BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(100),
-                ),
-              ),
-              child: Text(
-                "${teams[index].position}°",
-                style: const TextStyle(
-                  fontSize: 20,
-                  color: Colors.white,
-                ),
-              ),
-            ),
+            leading: Text("${teams[index].position} °", style: textStyle()),
+            trailing: Text("${teams[index].points} PT", style: textStyle()),
+            title: Image.network(teams[index].team.logo),
           ),
         );
       },
@@ -139,4 +95,6 @@ class ClassificationTeams_View extends StatelessWidget {
           const Divider(color: Colors.transparent),
     );
   }
+
+  TextStyle textStyle() => TextStyle(color: Colors.white);
 }

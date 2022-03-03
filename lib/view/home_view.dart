@@ -17,11 +17,11 @@ class Home_View extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            const Spacer(),
-            _header(),
-            const Spacer(),
-            _selectNavigator(context),
-            const Spacer(),
+            const Spacer(flex: 21),
+            Expanded(flex: 60, child: _header()),
+            const Spacer(flex: 7),
+            Expanded(flex: 10, child: _selectNavigator(context)),
+            const Spacer(flex: 7),
           ],
         ),
       ),
@@ -29,44 +29,46 @@ class Home_View extends StatelessWidget {
   }
 
   Widget _header() {
-    return Container(
-      width: 150,
-      height: 150,
-      child: Image.asset("assets/logo.png"),
-    );
+    return Image.asset("assets/logo.png");
   }
 
   Widget _selectNavigator(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        _elevatedButton(
-            () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => ClassificationTeams_View()),
-                ),
-            "Teams"),
-        Divider(),
-        _elevatedButton(
-            () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => ClassificationDriver_View()),
-                ),
-            "Drivers"),
+        Expanded(
+          flex: 45,
+          child: _elevatedButton(
+              () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ClassificationTeams_View()),
+                  ),
+              "Teams"),
+        ),
+        Spacer(flex: 10),
+        Expanded(
+          flex: 45,
+          child: _elevatedButton(
+              () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ClassificationDriver_View()),
+                  ),
+              "Drivers"),
+        ),
       ],
     );
   }
 
   Widget _elevatedButton(Function onPressed, text) {
-    return SizedBox(
-      height: 100,
-      child: ElevatedButton(
-        onPressed: () => onPressed(),
-        child: Text(
-          text,
-          textScaleFactor: 1,
+    return ElevatedButton(
+      onPressed: () => onPressed(),
+      child: SizedBox.expand(
+        child: FittedBox(
+          child: Text(
+            text,
+          ),
         ),
       ),
     );

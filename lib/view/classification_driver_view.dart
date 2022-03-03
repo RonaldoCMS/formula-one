@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:formulaone/model/classification_driver.dart';
 import 'package:formulaone/viewmodel/classification_driver_view_model.dart';
@@ -19,14 +18,11 @@ class ClassificationDriver_View extends StatelessWidget {
   Widget _body(BuildContext context, ClassificationDriver_ViewModel viewModel) {
     return SafeArea(
         child: Container(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(8),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Container(
-            width: 150,
-            height: 150,
-            child: Image.asset("assets/logo.png"),
-          ),
+          Image.asset("assets/logo.png"),
           Expanded(
             child: Builder(
               builder: (context) {
@@ -48,19 +44,14 @@ class ClassificationDriver_View extends StatelessWidget {
               },
             ),
           ),
-          SizedBox(
-            height: 50,
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text(
-                "Back",
-                textScaleFactor: 1,
-              ),
+          ElevatedButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text(
+              "Back",
             ),
           ),
           const Divider(),
-          const Text("Season 2021"),
+          const Text("Season 2021", textAlign: TextAlign.center),
         ],
       ),
     ));
@@ -70,8 +61,8 @@ class ClassificationDriver_View extends StatelessWidget {
     return ListView.separated(
       itemBuilder: (context, index) {
         List<String> splitName = drivers[index].driver.name.split(" ");
+        double? points = drivers[index].points;
         return Container(
-          //height: 50,
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(
               bottomRight: Radius.circular(10),
@@ -79,24 +70,18 @@ class ClassificationDriver_View extends StatelessWidget {
             color: Colors.red,
           ),
           child: ListTile(
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            subtitle: Text(
+              drivers[index].team.name,
+              style: TextStyle(fontSize: 12),
+            ),
+            title: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(splitName[0], textScaleFactor: 1),
-                    Text(splitName[1]),
-                    Text(drivers[index].team.name, textScaleFactor: 0.3),
-                  ],
-                ),
-                Text(
-                  "${drivers[index].points} PT",
-                  style: TextStyle(fontSize: 10),
-                )
+                Text(splitName[0]),
+                Text(splitName[1]),
               ],
             ),
+            trailing: Text("$points PT"),
             leading: Text("${drivers[index].position}°"),
           ),
         );

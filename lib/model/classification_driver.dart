@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:formulaone/model/driver.dart';
 import 'package:formulaone/model/team.dart';
 
@@ -5,7 +7,7 @@ class ClassificationDriver {
   late int position;
   late Driver driver;
   late Team team;
-  String? points;
+  double? points;
   int? wins;
   int? behind;
   late int season;
@@ -14,10 +16,13 @@ class ClassificationDriver {
       this.wins, this.behind, this.season);
 
   ClassificationDriver.fromJson(Map<String, dynamic> json) {
+    log("points -> ${json['points']} ");
     position = json['position'];
     driver = (json['driver'] != null ? Driver.fromJson(json['driver']) : null)!;
     team = (json['team'] != null ? Team.fromJson(json['team']) : null)!;
-    points = json['points'].toString();
+    points = (json['points'].runtimeType == int)
+        ? json['points'].toDouble()
+        : double.parse(json['points'] ?? "0");
     wins = json['wins'];
     behind = json['behind'];
     season = json['season'];
